@@ -1,12 +1,12 @@
 #ifndef COMMON_API_CONTROLLABLE_PROCESS_HPP
 #define COMMON_API_CONTROLLABLE_PROCESS_HPP
 
+#include "plugin/Plugin.hpp"
+
 #include <functional>
 #include <memory>
 
-#include "plugin/plugin.hpp"
-
-namespace reactorFramework
+namespace commonApi
 {
     class ComAPIEventLoop;
 

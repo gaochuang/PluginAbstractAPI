@@ -1,9 +1,12 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -pthread -O2 -fPIC -std=c++17
 
-LIBNAME = libcommonpicontrollableprocess
+PREFIX ?= /usr/local
+LIBDIR = $(PREFIX)/lib64/comapi
+INCLUDEDIR = $(PREFIX)/include/comapi
 
-INCLUDES = -Iinclude/comapi/controllableProcess -I../include
+LIBNAME = libcommonpicontrollableprocess
+INCLUDES = -I/usr/local/include/comapi -Iinclude
 
 SRCS = src/controllableProcess.cpp
 
@@ -20,6 +23,17 @@ $(SHARED_LIB): $(OBJS)
 src/%.o: src/%.cpp
 	@echo "Compiling $< into $@"
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+
+install: all
+	mkdir -p $(LIBDIR) $(INCLUDEDIR)
+	install -m 0755 $(SHARED_LIB) $(LIBDIR)
+	@echo "Installing header files to $(INCLUDEDIR)"
+	cp -r ./include/comapi/* $(INCLUDEDIR)
+
+uninstall:
+	rm -f $(LIBDIR)/$(SHARED_LIB)
+	rm -rf $(INCLUDEDIR)/controllableProcess
 
 clean:
 	@echo "Cleaning up"

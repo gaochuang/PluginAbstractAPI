@@ -1,12 +1,12 @@
-#include "controllableProcess.hpp"
-#include "controllableProcessPlugin.hpp"
+#include "comapi/controllableProcess/ControllableProcess.hpp"
+#include "comapi/controllableProcess/ControllableProcessPlugin.hpp"
 
 #include <mutex>
 #include <ostream>
 #include <sstream>
 #include <iostream>
 
-using namespace reactorFramework::controllableprocess;
+using namespace commonApi::controllableprocess;
 
 namespace
 {
@@ -23,7 +23,7 @@ ControllableProcess::~ControllableProcess()
     }
 }
 
-std::shared_ptr<ControllableProcess> ControllableProcess::create(std::shared_ptr<reactorFramework::ComAPIEventLoop> ga)
+std::shared_ptr<ControllableProcess> ControllableProcess::create(std::shared_ptr<commonApi::ComAPIEventLoop> ga)
 {
     std::lock_guard<std::recursive_mutex> guard(mutex);
 
@@ -34,7 +34,7 @@ std::shared_ptr<ControllableProcess> ControllableProcess::create(std::shared_ptr
         throw oss.str();
     }
 
-    auto ret = reactorFramework::Plugin::create<ControllableProcess>(ga, COMMONAPICONTROLLABLEPROCESS_PLUGIN_CREATOR_NAME_STR);
+    auto ret = commonApi::Plugin::create<ControllableProcess>(ga, COMMONAPICONTROLLABLEPROCESS_PLUGIN_CREATOR_NAME_STR);
 
     createdInstance = ret.get();
 
