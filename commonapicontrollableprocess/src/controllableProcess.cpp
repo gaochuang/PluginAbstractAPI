@@ -26,7 +26,6 @@ ControllableProcess::~ControllableProcess()
 std::shared_ptr<ControllableProcess> ControllableProcess::create(std::shared_ptr<commonApi::ComAPIEventLoop> ga)
 {
     std::lock_guard<std::recursive_mutex> guard(mutex);
-
     if(nullptr != createdInstance)
     {
         std::ostringstream oss;

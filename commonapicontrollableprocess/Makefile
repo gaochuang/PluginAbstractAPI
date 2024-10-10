@@ -5,7 +5,7 @@ PREFIX ?= /usr/local
 LIBDIR = $(PREFIX)/lib64/comapi
 INCLUDEDIR = $(PREFIX)/include/comapi
 
-LIBNAME = libcommonpicontrollableprocess
+LIBNAME = libcommonapicontrollableprocess
 INCLUDES = -I/usr/local/include/comapi -Iinclude
 
 SRCS = src/controllableProcess.cpp
