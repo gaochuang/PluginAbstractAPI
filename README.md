@@ -6,6 +6,7 @@
 
 ## commonapicontrollableprocess
 ![架构图](./doc/commonapicontrollableprocess.drawio.png)
+
 提供以下服务:
 
 1. **服务状态通知**：通知其它服务当前服务运行是否正常。
