@@ -12,7 +12,6 @@ namespace commonApi
             std::string indent;
             int facility;
         };
-        
     }
 }
 
