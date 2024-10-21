@@ -13,16 +13,23 @@
 
 #define COMMONAPILOGGER_PLUGIN_CREATOR_IMPL_NAME COMMONAPI_MAKE_CREATOR_IMPL_NAME(COMMONAPI_LOGGER_PLUGIN_CREATOR_NAME)
 
-#define COMMONAPI_DEFINE_LOGGER_PLUGIN_CREATOR(_services, _params)                                                              \
-        decltype(COMMONAPILOGGER_PLUGIN_CREATOR_IMPL_NAME({}, {}))                                                              \
-        COMMONAPI_LOGGER_PLUGIN_CREATOR_NAME(std::shared_ptr<::commonApi::PluginServices> _services,  const void* arg)          \
-        {                                                                                                                       \
-            return COMMONAPILOGGER_PLUGIN_CREATOR_IMPL_NAME(_service, *static_cast<const ::commonApi::logger::Params*>(arg));   \
-        }                                                                                                                       \
-        COMMONAPI_DECLARE_PLUGIN_CREATOR_WITH_ARGS(                                                                             \
-            ::commonApi::logger::Logger,                                                                                        \
-            COMMONAPILOGGER_PLUGIN_CREATOR_IMPL_NAME,                                                                           \
-            _service,                                                                                                           \
-            const ::commonApi::logger::Parameters& _params                                                                   \
-        )
+COMMONAPI_DECLARE_PLUGIN_CREATOR_WITH_ARGS(::commonApi::logger::Logger,
+                                        COMMONAPI_LOGGER_PLUGIN_CREATOR_NAME,
+                                        _services,
+                                        const ::commonApi::logger::Parameters& params);
+
+
+#define COMMONAPI_DEFINE_LOGGER_PLUGIN_CREATOR(_services, _params)                                                        \
+    decltype(COMMONAPILOGGER_PLUGIN_CREATOR_IMPL_NAME({}, {}))                                                            \
+    COMMONAPI_LOGGER_PLUGIN_CREATOR_NAME(                                                                                 \
+       std::shared_ptr<::commonApi::PluginServices> _services,  const void* arg)                                           \
+    {                                                                                                                      \
+        return COMMONAPILOGGER_PLUGIN_CREATOR_IMPL_NAME(_services, *static_cast<const ::commonApi::logger::Parameters*>(arg));  \
+    }                                                                                                                       \
+    COMMONAPI_DEFINE_PLUGIN_CREATOR_WITH_ARGS(                                                                             \
+        ::commonApi::logger::Logger,                                                                                        \
+        COMMONAPILOGGER_PLUGIN_CREATOR_IMPL_NAME,                                                                           \
+        _services,                                                                                                          \
+        const ::commonApi::logger::Parameters& _params)
+
 #endif
